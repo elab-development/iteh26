@@ -4,3 +4,19 @@ services:
     container_name: frontend
     ports:
       - "3002:3000"
+    depends_on:
+      - database
+
+  database:
+    image: postgress:17
+    container_name: flashcards-postgress
+    environment:
+      - POSTGRESS_USER=postgres
+      - POSTGRESS_PASSWORD=postgres
+      - POSTGRESS_DB=flashcards
+    ports:
+      - "5432:5432"
+    volumes:
+      - flashcards_pgdata:/var/lib/postgresql/data
+
+volumes: flashcards_pgdata
