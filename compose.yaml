@@ -8,8 +8,8 @@ services:
       - database
 
   database:
-    image: postgress:17
-    container_name: flashcards-postgress
+    image: postgres:17
+    container_name: flashcards-postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
@@ -19,4 +19,5 @@ services:
     volumes:
       - flashcards_pgdata:/var/lib/postgresql/data
 
-volumes: flashcards_pgdata
+volumes:
+  flashcards_pgdata:
