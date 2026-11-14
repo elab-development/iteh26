@@ -6,6 +6,10 @@ services:
       - "3002:3000"
     depends_on:
       - database
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
 
   database:
     image: postgres:17
