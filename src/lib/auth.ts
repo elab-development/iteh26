@@ -17,3 +17,15 @@ export type JwtUserClaims = {
 export function signAuthToken(claims: JwtUserClaims) {
     return jwt.sign(claims, JWT_SECRET, { algorithm: "HS256", expiresIn: "7d" })
 }
+
+export function verifyAuthToken(token: string): JwtUserClaims {
+    const payload = jwt.verify(token, JWT_SECRET) as jwt.JwtPayload & JwtUserClaims; // vraca string pa ga kastujemo, mora da odgovara oba tipa, I ovom Payload generickom I nasem custom JwtUserClaims
+
+    //ako je validan, ne znaci da ima sva polja
+    if (!payload || !payload.sub || !payload.email) throw new Error("Invalid token");
+    return {
+        sub: payload.sub,
+        email: payload.email,
+        name: payload.name
+    }
+}
